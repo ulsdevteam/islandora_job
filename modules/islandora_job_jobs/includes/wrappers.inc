@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /**
  * @file
@@ -33,6 +33,7 @@ function islandora_job_jobs_islandora_do_derivatives($object_in, array $options 
 
   if (!islandora_job_jobs_enforce_idle_wait($object, $entrances)) {
     islandora_job_submit_background('islandora_job_jobs_islandora_do_derivatives', $object->id, $options, $entrances + 1);
+    module_invoke_all('islandora_job_finished', array('pid' => $object_in, 'job' => 'islandora_job_jobs_islandora_do_derivatives'));
     return;
   }
 
