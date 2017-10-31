@@ -51,5 +51,6 @@ function islandora_job_jobs_islandora_do_derivatives($object_in, array $options 
   if ($re_add) {
     islandora_set_defer_derivatives_flag($object);
   }
+  module_invoke_all('islandora_job_finished', array('pid' => $object_in, 'job' => 'islandora_job_jobs_islandora_do_derivatives'));
   return $result;
 }
