@@ -156,10 +156,12 @@ function islandora_job_router_job_error($status_id, $name, $args) {
     E_PARSE,
     E_RECOVERABLE_ERROR,
   );
+
   if ($error != NULL && in_array($error['type'], $applicable_errors)) {
-    drush_set_error('islandora_job', dt('The callback !func_name with args !args threw an exception: !exception in !file on line !line.', array(
+    drush_set_error('islandora_job', dt('The callback !func_name with args !args threw an error: !type exception: !exception in !file on line !line.', array(
       '!func_name' => $name,
       '!args' => implode(', ', $args),
+      '!type' => isset($error['type']) ? $error['type'] : '?',
       '!exception' => isset($error['message']) ? $error['message'] : '',
       '!file' => isset($error['file']) ? $error['file'] : '',
       '!line' => isset($error['line']) ? $error['line'] : '',
