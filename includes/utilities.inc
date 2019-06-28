@@ -61,7 +61,8 @@ function islandora_job_function_name($job_name) {
  */
 function islandora_job_format_payload($job_name, array $args) {
   global $user;
-  global $base_url;
+  // global $base_url;
+  $base_url = 'http://gamera.library.pitt.edu';
   array_shift($args);
   return json_encode(
     array(
