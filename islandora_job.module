@@ -46,6 +46,7 @@ function islandora_job_submit($job_name) {
     $state_id = islandora_job_insert_job_status($payload);
     try {
       $client = islandora_job_get_client();
+      module_invoke_all('islandora_job_started', $payload);
       $job_handle = $client->doNormal(islandora_job_function_name($job_name), $payload);
       if ($client->returnCode() != GEARMAN_SUCCESS) {
         islandora_job_remove_job_status($state_id);
@@ -80,6 +81,7 @@ function islandora_job_submit_background($job_name) {
     $state_id = islandora_job_insert_job_status($payload);
     try {
       $client = islandora_job_get_client();
+      module_invoke_all('islandora_job_started', $payload);
       $job_handle = $client->doBackground(islandora_job_function_name($job_name), $payload);
       if ($client->returnCode() != GEARMAN_SUCCESS) {
         islandora_job_remove_job_status($state_id);
